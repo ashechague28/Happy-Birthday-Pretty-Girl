@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday My Venice! 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=Pacifico&family=Satisfy&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink:       #F48FB1;
+    --pink-deep:  #E91E8C;
+    --pink-light: #FCE4EC;
+    --pink-pale:  #FFF0F5;
+    --rose-gold:  #C9857A;
+    --cream:      #FFFAFB;
+    --text:       #5C2D3E;
+    --text-soft:  #B07090;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    min-height: 100vh; width: 100vw;
+    background: #FFB6C1;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Nunito', sans-serif;
+    overflow: hidden; position: relative;
+  }
+
+  /* floaties */
+  .floatie {
+    position: fixed; pointer-events: none;
+    animation: floatUp linear infinite;
+    opacity: 0; z-index: 0;
+  }
+  @keyframes floatUp {
+    0%   { transform: translateY(110vh) rotate(0deg);   opacity:0; }
+    10%  { opacity: 0.7; }
+    90%  { opacity: 0.4; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity:0; }
+  }
+
+  /* ===== LANDING ===== */
+  #landing {
+    position: fixed; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 22px; z-index: 100;
+    background: #FFB6C1;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  #landing.hide { opacity:0; transform:scale(0.95); pointer-events:none; }
+
+  .land-polaroid {
+    background: #fff;
+    padding: 12px 12px 44px;
+    box-shadow: 6px 8px 28px rgba(180,80,120,0.28), 0 2px 8px rgba(0,0,0,0.08);
+    transform: rotate(-2deg);
+    position: relative;
+    animation: floatBob 3s ease-in-out infinite;
+  }
+  @keyframes floatBob {
+    0%,100%{transform:rotate(-2deg) translateY(0)} 50%{transform:rotate(-2deg) translateY(-9px)}
+  }
+  .land-polaroid img { width:240px; height:280px; object-fit:cover; display:block; }
+  .land-polaroid .tape {
+    position:absolute; top:-11px; left:50%;
+    transform:translateX(-50%) rotate(-1deg);
+    width:66px; height:21px;
+    background:rgba(244,143,177,0.45); border-radius:3px;
+  }
+  .land-polaroid .cap {
+    position:absolute; bottom:10px; left:0; right:0;
+    text-align:center;
+    font-family:'Patrick Hand',cursive;
+    font-size:14px; color:var(--rose-gold);
+  }
+
+  .land-title {
+    font-family:'Pacifico',cursive;
+    font-size:34px; color:#fff;
+    text-shadow:2px 3px 0 rgba(180,50,100,0.22);
+    text-align:center;
+    animation:hb 2s ease-in-out infinite;
+  }
+  @keyframes hb { 0%,100%{transform:scale(1)} 50%{transform:scale(1.03)} }
+
+  .open-btn {
+    background:#fff; border:none;
+    color:var(--pink-deep);
+    font-family:'Nunito',sans-serif;
+    font-size:14px; font-weight:800;
+    padding:12px 34px; border-radius:50px;
+    cursor:pointer;
+    box-shadow:0 4px 18px rgba(233,30,140,0.2);
+    letter-spacing:0.5px;
+    transition:all 0.25s;
+  }
+  .open-btn:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(233,30,140,0.3); }
+
+  /* ===== BOOK WRAPPER ===== */
+  #book-wrapper {
+    position:fixed; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none;
+    transition:opacity 0.8s ease;
+    z-index:50;
+  }
+  #book-wrapper.show { opacity:1; pointer-events:all; }
+
+  /* ===== BOOK ===== */
+  .book {
+    width: 700px; height: 460px;
+    background: #fff;
+    border-radius: 22px;
+    box-shadow: 0 22px 60px rgba(180,80,120,0.22), 0 4px 16px rgba(0,0,0,0.07);
+    display: flex;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ── photo half ── */
+  .photo-half {
+    width: 46%;
+    background: var(--pink-pale);
+    display: flex; align-items: center; justify-content: center;
+    padding: 22px 16px 46px;
+    position: relative;
+    border-right: 2px dashed rgba(244,143,177,0.28);
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .polaroid-grid {
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: center;
+    gap: 10px;
+    width: 100%; height: 100%;
+  }
+
+  .polaroid {
+    background: #fff;
+    padding: 7px 7px 26px;
+    box-shadow: 3px 4px 14px rgba(180,80,120,0.18), 0 1px 4px rgba(0,0,0,0.06);
+    position: relative; flex-shrink: 0;
+  }
+  .p-img {
+    overflow: hidden;
+    background: var(--pink-light);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .p-img img { width:100%; height:100%; object-fit:cover; display:block; }
+  .p-ph {
+    display:flex; flex-direction:column; align-items:center; gap:5px;
+    color:var(--rose-gold); font-size:11px; text-align:center; padding:8px;
+  }
+  .p-label {
+    position:absolute; bottom:5px; left:0; right:0;
+    text-align:center;
+    font-family:'Patrick Hand',cursive;
+    font-size:11px; color:var(--text-soft);
+  }
+  .p-tape {
+    position:absolute; top:-9px; left:50%;
+    transform:translateX(-50%);
+    width:44px; height:16px;
+    background:rgba(244,143,177,0.4); border-radius:2px;
+  }
+
+  .g1 .polaroid { width:185px; }
+  .g1 .p-img { width:171px; height:158px; }
+  .g1 .polaroid { transform:rotate(-2deg); }
+
+  .g2 .polaroid { width:142px; }
+  .g2 .p-img { width:128px; height:118px; }
+  .g2 .polaroid:nth-child(1){ transform:rotate(-3deg); }
+  .g2 .polaroid:nth-child(2){ transform:rotate(2.5deg); }
+
+  .g4 .polaroid { width:120px; }
+  .g4 .p-img { width:106px; height:94px; }
+  .g4 .polaroid:nth-child(1){ transform:rotate(-2.5deg); }
+  .g4 .polaroid:nth-child(2){ transform:rotate(2deg); }
+  .g4 .polaroid:nth-child(3){ transform:rotate(1.5deg); }
+  .g4 .polaroid:nth-child(4){ transform:rotate(-2deg); }
+
+  .stk-tr {
+    position:absolute; top:11px; right:11px;
+    font-size:21px; z-index:5;
+    animation:wig 3s ease-in-out infinite;
+  }
+  .stk-bl {
+    position:absolute; bottom:36px; left:11px;
+    font-size:16px; z-index:5;
+    animation:wig 3.5s ease-in-out infinite reverse;
+  }
+  @keyframes wig { 0%,100%{transform:rotate(-8deg)} 50%{transform:rotate(8deg)} }
+
+  /* ── letter half ── */
+  .letter-half {
+    flex: 1;
+    background: #fff;
+    display: flex; flex-direction: column;
+    padding: 24px 22px 46px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .l-tag {
+    display:inline-block;
+    background:var(--pink-light);
+    color:var(--pink-deep);
+    font-size:10px; font-weight:800;
+    letter-spacing:2px; text-transform:uppercase;
+    padding:3px 12px; border-radius:50px;
+    margin-bottom:10px; align-self:flex-start;
+  }
+
+  .l-card {
+    background:var(--pink-pale);
+    border:1.5px dashed rgba(244,143,177,0.45);
+    border-radius:14px;
+    padding:14px 16px;
+    flex:1; display:flex; flex-direction:column;
+    gap:8px; overflow:hidden;
+  }
+
+  .l-title {
+    font-family:'Satisfy',cursive;
+    font-size:21px; color:var(--pink-deep);
+    line-height:1.2;
+  }
+  .l-body {
+    font-family:'Patrick Hand',cursive;
+    font-size:13.5px; color:var(--text);
+    line-height:1.75; flex:1; overflow:hidden;
+  }
+  .l-closing {
+    font-family:'Satisfy',cursive;
+    font-size:15px; color:var(--rose-gold);
+    text-align:right;
+    padding-top:7px;
+    border-top:1px dashed rgba(244,143,177,0.4);
+    flex-shrink:0;
+  }
+
+  .l-footer {
+    text-align:center; font-size:14px;
+    letter-spacing:5px; margin-top:7px;
+    color:var(--pink); flex-shrink:0;
+  }
+
+  /* ── page number ── */
+  .pg-n {
+    position:absolute;
+    font-size:10px; color:rgba(200,100,130,0.3);
+    font-weight:700; letter-spacing:1px;
+    bottom:34px;
+  }
+  .pg-n.l { left:13px; }
+  .pg-n.r { right:13px; }
+
+  /* ── nav bar ── */
+  .book-nav {
+    position:absolute; bottom:0; left:0; right:0;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:8px 18px;
+    background:rgba(255,255,255,0.9);
+    border-top:1px dashed rgba(244,143,177,0.22);
+  }
+  .nav-btn {
+    font-family:'Nunito',sans-serif;
+    font-size:12px; font-weight:700;
+    color:var(--text-soft);
+    cursor:pointer; letter-spacing:0.3px;
+    transition:color 0.2s; padding:3px 6px;
+    user-select:none; border:none; background:none;
+  }
+  .nav-btn:hover { color:var(--pink-deep); }
+  .nav-btn:disabled { opacity:0.2; cursor:default; }
+  .nav-dots { display:flex; gap:6px; align-items:center; }
+  .dot {
+    width:7px; height:7px; border-radius:50%;
+    background:rgba(244,143,177,0.3);
+    transition:all 0.3s;
+  }
+  .dot.on { background:var(--pink-deep); transform:scale(1.3); }
+
+  /* slide animation */
+  @keyframes slideR { from{opacity:0;transform:translateX(36px)} to{opacity:1;transform:translateX(0)} }
+  @keyframes slideL { from{opacity:0;transform:translateX(-36px)} to{opacity:1;transform:translateX(0)} }
+  .slide-r { animation:slideR 0.4s ease forwards; }
+  .slide-l { animation:slideL 0.4s ease forwards; }
+</style>
+</head>
+<body>
+
+<div id="landing">
+  <div class="land-polaroid">
+    <div class="tape"></div>
+    <img src="PIC4.jpg" alt="Us"
+      onerror="this.style.cssText='width:240px;height:280px;background:#FCE4EC;display:block;';this.removeAttribute('onerror')">
+    <div class="cap">Ash &amp; Venice 💕</div>
+  </div>
+  <div class="land-title">Happy Birthday, My Venice! 🎂</div>
+  <button class="open-btn" onclick="openBook()">Tap to open your gift 🎁</button>
+</div>
+
+<div id="book-wrapper">
+  <div class="book">
+    <div id="page-content" style="display:flex;width:100%;height:100%;position:relative;"></div>
+    <div class="book-nav">
+      <button class="nav-btn" id="btn-prev" onclick="go(-1)">← Back</button>
+      <div class="nav-dots" id="dots"></div>
+      <button class="nav-btn" id="btn-next" onclick="go(1)">Tap to flip →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SL = ['🌸','🌷','🍓','🌹','🦋','🌺','🍒','🌼','🎀','💝'];
+const SR = ['💖','✨','🎀','💝','🌙','⭐','🎊','💫','🌸','💕'];
+
+const pages = [
+ {
+    photos:['MATCHY1.jpg','MATCHY2.jpg'], labels:[],
+    tag:'Grateful for You 🎀', title:'My Greatest Blessing',
+    body: 'I am writing this because I want you to know just how deeply grateful I am to have you by my side. Every single day with you feels like a beautiful gift that I never want to take for granted. You have changed my life in the best ways possible, and honestly, I don\'t know what I\'d do without your love and your constant support. Thank you for being my peace, my happiness, and my favorite person to experience everything with. I am so lucky that you chose me to be the one by your side. You are the best thing that has ever happened to me, and I am so thankful for every second we spend together.',
+    closing:'With all my love, Ash'
+  },
+  {
+    photos:['PIC1.jpg','PIC2.jpg','pic3.jpg','PIC5.jpg'], labels:[],
+    tag:'Pure Beauty 📷', title:'Admiring You',
+    body: 'I could spend forever just looking at you and I would still find something brand new to admire every single time. To me, you are truly the most beautiful person in the whole world—not just because of your amazing smile or the way your eyes light up when you\'re happy, but because of the beautiful and kind soul you have inside. You carry yourself with such grace, and your beauty is so effortless that it honestly takes my breath away sometimes. Whether you are dressed up or just being yourself at home, you are stunning in every single way, Venice. I hope you always see yourself through my eyes, because all I ever see is perfection and a heart that shines brighter than anything else.',
+    closing:'Always in awe of you, Ash'
+  },
+  {
+    photos:['PTB1.jpg','PTB2.jpg','PTB3.jpg','PTB4.jpg'], labels:[],
+    tag:'Birthday Vibes 🎉', title:'Happy Birthday, Venice! 🎂',
+    body: 'Today is all about you, and I honestly wish I could give you the whole world because that is exactly what you deserve. Celebrating you is truly one of my favorite things because it reminds me of the day the world got a little bit brighter. You deserve all the confetti, all the cake, and every single ounce of happiness the universe can possibly offer you today. Thank you for letting me be a part of your journey and for making my own story so much better just by being exactly who you are. I hope this year brings you as much joy as you bring to everyone around you.',
+    closing:'Your Ash 🎊'
+  },
+  {
+    photos:['IP1.jpg'], labels:[],
+    tag:'A Little Note 💌', title:'To My Venice,',
+    body: 'I was sitting here thinking about all the tiny, beautiful things that make you who you are. The way you laugh at your own jokes before you even finish telling them, the way you get so genuinely excited about the smallest things, and the way you care so deeply for the people in your life. None of those things are small to me—they are everything. They are the reasons why I fall for you more and more every single day. You are truly the best thing that has ever happened to me, and I hope you never forget how much you are appreciated.',
+    closing:'Always thinking of you, Ash 💭'
+  },
+  {
+    photos:['PG5.JPG'], labels:[],
+    tag:'From the Heart 💖', title:'Dearest Venice,',
+    body: 'You have this magical ability to make everyone around you feel seen, heard, and completely loved. I don\'t think you realize how rare and beautiful that gift actually is in this world. When I\'m with you, everything feels a little bit softer, kinder, and full of brand new possibilities. I am so incredibly lucky to have you as my person, my partner, and my safe place to call home. My heart is always at peace whenever you\'re nearby, and I just wanted to remind you how much you are cherished by me.',
+    closing: 'Lucky to have you, Ash 🍀'
+  },
+  {
+    photos:['PG6.JPG'], labels:[],
+    tag:'Rainy Days ☔', title:'My favorite person,',
+    body: 'Whenever it rains, I always find myself thinking of you—staying inside where it\'s warm, sharing our favorite snacks, and watching movies we\'ve already seen a hundred times before. Those lazy, quiet days are somehow my favorite moments of all because they prove that I don\'t need a big adventure to be happy; I just need you. Anywhere with you feels like exactly where I\'m supposed to be. I\'d choose a rainy day stuck inside with you over a sunny day anywhere else in the world, as long as I\'m holding your hand.',
+    closing: 'Your rainy day person, Ash 🐾'
+  },
+  {
+    photos:['PG7.JPG'], labels:[],
+    tag:'A Reminder 💝', title:'Just so you know,',
+    body: 'On the days when things feel a bit heavy, or on the days when you start to doubt yourself, please look at this and remember that you are so deeply and completely loved by me. I will remind you of this as many times as you ever need to hear it until you believe it as much as I do. You are more than enough, you are absolutely amazing, and you\'re truly the most wonderful person I\'ve ever had the privilege of knowing. You are my light even on the darkest days, and I am always going to be your biggest fan.',
+    closing: 'Always reminding you, Ash 📩'
+  },
+  {
+    photos:['PG8.JPG'], labels:[],
+    tag:'Looking Back 🌸', title:'My love,',
+    body: 'Looking back at all the photos and memories we\'ve shared together, I find myself smiling at the screen every single time. From the big milestones to the tiny, quiet moments we spend just talking about nothing, every second is a treasure to me. We have built our own special world with our own language and inside jokes that nobody else understands. I wouldn\'t trade a single second of our time together for anything else in this world because what we have is so rare and so incredibly special to me.',
+    closing:'Grateful for you, Ash 🌸'
+  },
+  {
+    photos:['PG9.JPG'], labels:[],
+    tag:'A Promise 🌙', title:'Sweetheart,',
+    body: 'I promise to keep choosing you every single day, no matter what. I promise to keep showing up, listening to your stories, and making you laugh even when I\'m being embarrassing. I promise to be the person who celebrates your wins the loudest and the one who holds you the closest whenever you need a hand to hold. Through all the highs and all the lows that life might bring us, I am here for you. I am never going anywhere because you are the person I want to walk through life with. I am yours, always and forever.',
+    closing:'Yours always, Ash 🌙'
+  },
+  {
+    photos:['PG12.JPG'], labels:[],
+    tag:'The Last Page 💕', title:'To my everything, Venice,',
+    body: 'This might be the last page of this little digital book, but it\'s the farthest thing from the end of our story together. Our journey keeps going every single day—filled with new chapters, new memories, and a million more reasons for me to fall in love with you all over again. Happy Birthday, Venice. You are my everything, my best friend, and my whole heart. I can\'t wait to see all the amazing things we\'re going to build together next, and I\'m so excited for our future. I love you endlessly.',
+    closing:'Forever yours, Ash 💕'
+  }
+];
+
+let cur = 0, busy = false;
+
+function buildDots() {
+  const d = document.getElementById('dots');
+  d.innerHTML = pages.map((_, i) =>
+    `<div class="dot${i===cur?' on':''}"></div>`).join('');
+}
+
+function photoSide(p, idx) {
+  const n = p.photos.length;
+  const gc = n<=0?'g1':n===1?'g1':n===2?'g2':'g4';
+  const si = idx % SL.length;
+  const rots = [-3,2.5,-2,1.5,-3,2];
+  const dims = n<=1?{w:171,h:158}:n===2?{w:128,h:118}:{w:106,h:94};
+
+  let items = n === 0
+    ? `<div class="polaroid" style="transform:rotate(-2deg)">
+        <div class="p-tape"></div>
+        <div class="p-img" style="width:171px;height:158px;">
+          <div class="p-ph">📷<br>Memory ${idx+1}</div>
+        </div>
+        <div class="p-label">Our memory 🌸</div>
+       </div>`
+    : p.photos.map((src,i) =>
+        `<div class="polaroid" style="transform:rotate(${rots[i%rots.length]}deg)">
+          <div class="p-tape"></div>
+          <div class="p-img" style="width:${dims.w}px;height:${dims.h}px;">
+            <img src="${src}" onerror="this.parentElement.innerHTML='<div class=p-ph>📷<br>${src}</div>'">
+          </div>
+          <div class="p-label">${p.labels[i]||''}</div>
+        </div>`).join('');
+
+  return `<div class="photo-half">
+    <div class="stk-tr">${SL[si]}</div>
+    <div class="polaroid-grid ${gc}">${items}</div>
+    <div class="stk-bl">${SR[si]}</div>
+    <span class="pg-n l">${(idx+1)*2-1}</span>
+  </div>`;
+}
+
+function letterSide(p, idx) {
+  return `<div class="letter-half">
+    <div class="l-tag">${p.tag}</div>
+    <div class="l-card">
+      <div class="l-title">${p.title}</div>
+      <div class="l-body">${p.body}</div>
+      <div class="l-closing">${p.closing || ''}</div>
+    </div>
+    <div class="l-footer">💕 💖 💕</div>
+    <span class="pg-n r">${(idx+1)*2}</span>
+  </div>`;
+}
+
+function render(idx, dir) {
+  const c = document.getElementById('page-content');
+  const cls = dir > 0 ? 'slide-r' : dir < 0 ? 'slide-l' : '';
+  c.innerHTML = `<div class="${cls}" style="display:flex;width:100%;height:100%;">
+    ${photoSide(pages[idx], idx)}
+    ${letterSide(pages[idx], idx)}
+  </div>`;
+  document.getElementById('btn-prev').disabled = idx === 0;
+  document.getElementById('btn-next').disabled = idx === pages.length - 1;
+  buildDots();
+}
+
+function go(dir) {
+  if (busy) return;
+  const n = cur + dir;
+  if (n < 0 || n >= pages.length) return;
+  busy = true; cur = n;
+  render(cur, dir);
+  setTimeout(() => busy = false, 420);
+}
+
+function openBook() {
+  document.getElementById('landing').classList.add('hide');
+  setTimeout(() => {
+    document.getElementById('book-wrapper').classList.add('show');
+    render(0, 0);
+  }, 600);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key==='ArrowRight') go(1);
+  if (e.key==='ArrowLeft')  go(-1);
+});
+
+// floaties
+const fl = ['💕','🌸','✨','💖','🎀','🌷','💝','⭐'];
+for (let i = 0; i < 22; i++) {
+  const el = document.createElement('div');
+  el.className = 'floatie';
+  el.textContent = fl[i % fl.length];
+  el.style.cssText = `left:${Math.random()*100}vw;font-size:${13+Math.random()*13}px;animation-duration:${7+Math.random()*10}s;animation-delay:${Math.random()*14}s;`;
+  document.body.appendChild(el);
+}
+</script>
+</body>
+</html>
